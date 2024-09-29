@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('calculator.jpg'); 
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+        }
+
+        .calculator {
+            width: 300px;
+            background-image: url('https://example.com/calculator-bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .display {
+            margin-bottom: 20px;
+        }
+
+        .display input {
+            width: 100%;
+            padding: 20px;
+            font-size: 24px;
+            border: none;
+            border-radius: 5px;
+            text-align: right;
+            background-color: #e0e0e0;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .btn {
+            padding: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #bdbdbd;
+        }
+
+        .operator {
+            background-color: #ffa726;
+            color: white;
+        }
+
+        .equal {
+            background-color: #66bb6a;
+            color: white;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" disabled>
+        </div>
+        <div class="buttons">
+            <button class="btn" onclick="clearDisplay()">C</button>
+            <button class="btn" onclick="deleteDigit()">Del</button>
+            <button class="btn" onclick="appendCharacter('%')">%</button>
+            <button class="btn operator" onclick="appendCharacter('/')">/</button>
+            
+            <button class="btn" onclick="appendCharacter('7')">7</button>
+            <button class="btn" onclick="appendCharacter('8')">8</button>
+            <button class="btn" onclick="appendCharacter('9')">9</button>
+            <button class="btn operator" onclick="appendCharacter('*')">*</button>
+            
+            <button class="btn" onclick="appendCharacter('4')">4</button>
+            <button class="btn" onclick="appendCharacter('5')">5</button>
+            <button class="btn" onclick="appendCharacter('6')">6</button>
+            <button class="btn operator" onclick="appendCharacter('-')">-</button>
+            
+            <button class="btn" onclick="appendCharacter('1')">1</button>
+            <button class="btn" onclick="appendCharacter('2')">2</button>
+            <button class="btn" onclick="appendCharacter('3')">3</button>
+            <button class="btn operator" onclick="appendCharacter('+')">+</button>
+            
+            <button class="btn zero" onclick="appendCharacter('0')">0</button>
+            <button class="btn" onclick="appendCharacter('.')">.</button>
+            <button class="btn equal" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = "";
+
+        function appendCharacter(character) {
+            currentInput += character;
+            document.getElementById("result").value = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = "";
+            document.getElementById("result").value = "";
+        }
+
+        function deleteDigit() {
+            currentInput = currentInput.slice(0, -1);
+            document.getElementById("result").value = currentInput;
+        }
+
+        function calculateResult() {
+            try {
+                currentInput = eval(currentInput).toString();
+                document.getElementById("result").value = currentInput;
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
